@@ -20,7 +20,7 @@ class Tacotron(nn.Module):
         self.decoder_cell = DecoderCell(**decoder)
 
     @classmethod
-    def from_pretrained(cls, url, map_location=None, cfg_path=None):
+    def from_pretrained(cls, path, map_location=None, cfg_path=None):
         """
         Loads the Torch serialized object at the given URL
         (uses torch.hub.load_state_dict_from_url).
@@ -39,7 +39,8 @@ class Tacotron(nn.Module):
         )
         with cfg_ref.open() as file:
             cfg = toml.load(file)
-        checkpoint = torch.hub.load_state_dict_from_url(url, map_location=map_location)
+        # checkpoint = torch.hub.load_state_dict_from_url(url, map_location=map_location)
+        checkpoint = torch.load(path)
         model = cls(**cfg["model"])
         model.load_state_dict(checkpoint["tacotron"])
         model.eval()
