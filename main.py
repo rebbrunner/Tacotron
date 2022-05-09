@@ -15,7 +15,6 @@ tacotron = Tacotron.from_pretrained(
 cmudict = load_cmudict()
 cmudict["PYTORCH"] = "P AY1 T AO2 R CH"
 cmudict['REBECCA'] = 'R EH1 B EH0 AH0 K AA1'
-# print(cmudict['REBEL'])
 
 text = "Hello, Rebecca.  How are you today?"
 
