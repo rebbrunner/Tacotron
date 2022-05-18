@@ -1,7 +1,8 @@
 import torch
 import soundfile as sf
 from univoc import Vocoder
-from tacotron import Tacotron
+# from tacotron import Tacotron
+from MyTaco import Tacotron
 from text_tools import load_cmudict, text_to_id
 
 vocoder = Vocoder.from_pretrained(
