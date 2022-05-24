@@ -122,3 +122,4 @@ outputs/
 
 # tensorboard outputs
 tensorboard/
+*.csv

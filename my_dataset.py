@@ -75,8 +75,8 @@ class TTSDataset(Dataset):
         self.cmudict = load_cmudict()
 
         train_set = {path.stem for path in self.metadata}
-        with open(text_path) as file:
-            text = (line.stript().split('|') for line in file)
+        with open(text_path, encoding='utf-8') as file:
+            text = (line.strip().split('|') for line in file)
             self.text = {
                 key: transcript for key, _, transcript in text if key in train_set
             }
@@ -106,6 +106,9 @@ def pad_collate(batch, reduction_factor=2):
 
     if len(mels[0]) % reduction_factor != 0:
         mels[0] = F.pad(mels[0], (0, 0, 0, reduction_factor - 1))
+    
+    mel_lengths = [len(mel) for mel in mels]
+    text_lengths = [len(text) for text in texts]
     
     mels = pad_sequence(mels, batch_first=True)
     texts = pad_sequence(texts, batch_first=True, padding_value=symbol_to_id['_'])
